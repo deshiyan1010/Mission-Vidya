@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+{% endblock head_block %}
+
+{% block body_block %}
+<div class='container'>
+  <div class='jumbotron'>
+  <h2>My Request List</h2>
+  <h4>Special Key: {{request.session.special_key}}</h4>
+  </div>
+  <div class='font-size' id='color'>
+    {% if req_lst %}
+  {% for req in req_lst %}
+  <div class='border container row mx-auto'>
+    <div class='col-lg-7'>
+      <table class='font-size table table-hover'>
+        <tr>
+          <td> Donor Name:</td> 
+          <td>{{req.donor.user.first_name}}</td>
+        </tr>
+        <tr>
+          <td> Model Name:</td> 
+          <td>{{req.donor.model_name}}</td>
+        </tr>
+      </table>
+  </div>
+  <div class='offset-lg-2 col-lg-3'>
+    <a class='btn btn-danger' href="{% url 'apply_main:remove_request' req.donor.id %}">Remove Request</a><br><br>
+    <a class='btn btn-success' href="{% url 'apply_main:donor_details' req.donor.user.username %}">Visit Donors Page</a>
+  </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>No request made so far.</p>
+  {% endif %}
+</div>
+</div>
+{% endblock %}
+
+
+

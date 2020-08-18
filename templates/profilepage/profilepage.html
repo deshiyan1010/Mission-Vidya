@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head_block %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'profilepage/profile.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/profilepage/profile.css">
+<style>
+  #color{
+    color: darkgrey; !important
+  }
+  body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+#table-color{
+  color:rgb(58, 57, 57);
+  font-size: 1.2em;
+}
+</style>
+
+{% endblock head_block %}
+
+
+{% block body_block %}
+<header>
+  
+</header>
+<div class="container center" id='color'>
+  {% if user.registration.profile_pic %}
+  <img align="left" class="thumbnail fb-image-profile" src="{{user.registration.profile_pic.url}}" alt="Profile image example" style="max-height: 200px; width: auto;"/>
+  <!-- <img src="{{user.registration.profile_pic.url}}" alt="img" id="profileimg" onerror="this.onerror=null; this.src='/media/profile_pic/no_pro_pic.jpg'"> -->
+  {% else %}
+  <img align="left" class="fb-image-profile thumbnail" src="/static/profile_pic/no_pro_pic.jpg" alt="Profile image example" style="max-height: 200px; width: auto;">
+  {% endif %}
+  <br><br><br><br>
+  <h1 id="username color">{{user.first_name}} {{user.last_name}}</h1>
+  {{user.username}}
+  <br>
+  <button class='btn btn-outline-info' type='submit'><a href="{% url 'profilepage:changeprofileinfo' %}">Update Profile Page</a></button><br><br>
+
+  {% if user.donate_set.all|length != 0 %}
+
+    <table class="table table-striped " id='table-color'>
+      <thead >
+        <tr>
+
+          <th scope="col" class='text-center' style="color: blanchedalmond;">Model Name</th>
+          <th scope="col" class='text-center' style="color: blanchedalmond;">Published Date And Time</th>
+          <th scope="col" class='text-center' style="color: blanchedalmond;">View request List</th>
+          <th scope="col" class='text-center' style="color: blanchedalmond;">Delete Device</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for donation in user.donate_set.all %}
+        <tr>
+          <td class='table-light'>{{donation.model_name}}</td>
+          <td class='table-light'>{{donation.published}}</td>
+          <td class='table-light'><a class='btn btn-dark' href="{% url 'profilepage:request_details' donation.id %}">View Requests</a></td>
+          <td class='table-light'><a class='btn btn-danger' href="{% url 'profilepage:delete_device' donation.id %}">Delete Device</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    
+
+{% else %}
+  <p id='color'>You currently havn't donated any device. Please consider donating.</p>
+{% endif %}
+
+</div>
+
+    
+{% endblock %}
+
+
+<!-- important: https://pypi.org/project/django-friendship/ -->

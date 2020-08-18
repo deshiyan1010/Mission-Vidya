@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+<style>
+  #color{
+    color: darkgrey; !important
+  }
+  body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+</style>
+
+{% endblock head_block %}
+
+{% block body_block %}
+
+  <h2 class="h3 mb-3 font-weight-normal" id='color' >Applicant Login</h2>
+<div class='container' id='color'>
+  <form method="post" >
+    {% csrf_token %}
+        
+        <div class="row justify-content-center " >
+        <label for="aadhaar_number">Aadhaar Number</label>
+        <input type="number" name="aadhaar_number" class="formx input textinput textInput form-control form-control" placeholder="12 - Digit Unique Number" required><br><br>
+        </div><br>
+        <div class="row justify-content-center " >
+        <label for="date_of_birth">Date of Birth</label>
+        <input type="text" name="date_of_birth" class="formx input textinput textInput form-control form-control" placeholder="YYYY-MM-DD" required>     
+        </div><br>
+        
+      <button class='text-center btn btn-light' type="submit">Sign In</button>
+  </form>
+</div>
+  <h1 id='color'>{{message}}</h1>     
+    
+
+{% endblock %}
+
+
+

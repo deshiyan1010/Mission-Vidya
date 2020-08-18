@@ -1,0 +1,108 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head_block %}
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+{% endblock head_block %}
+
+{% block body_block %}
+<h2 align="center" class='container jumbotron'>Update Profile</h2><br /><br />
+ <body align='center' id='color'>
+   <div class='container'>
+  <br /><br /> 
+  <form method="post" id="applyForm" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table style="max-width:300px;">
+        {{user_form|crispy}}
+        {{profile_form|crispy}}
+    </table>
+
+  <div class="container">
+    <label for="state">Select State: </label>
+    <select name="state" id="state" class="btn btn-secondary dropdown-toggle" role='button' id='dropdownMenuLInk' data-toggle="dropdown" aria-haspopup="true",aria-expanded='false'>
+     <option value="" id="color">Select state</option>
+    </select>
+    <br><br>
+    <label for="district">Select District: </label>
+    <select name="district" id="district" class="btn btn-secondary dropdown-toggle" role='button' id='dropdownMenuLInk' data-toggle="dropdown" aria-haspopup="true",aria-expanded='false'>
+     <option value="" id="color">Select district</option>
+    </select>
+    <br><br>
+     <label for="subdistrict">Select Subdistrict: </label>
+    <select name="subdistrict" id="subdistrict" class="btn btn-secondary dropdown-toggle" role='button' id='dropdownMenuLInk' data-toggle="dropdown" aria-haspopup="true",aria-expanded='false'>
+     <option value="" id='color'>Select subdistrict</option>
+    </select><br><br>
+  </div>
+  <button class='text-center btn btn-success' type="submit">Save</button><br><br><br><br>
+  <h5>Please refill all the fields.</h5>
+</form>
+</div>
+ </body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+
+ load_json_data('state');
+
+ function load_json_data(id, parent_id)
+ {
+  var html_code = '';
+  // $.getJSON("{% static 'data.json' %}", function(data){
+    $.getJSON("/static/data.json", function(data){
+   html_code += '<option value="">Select '+id+'</option>';
+   $.each(data, function(key, value){
+    if(id == 'state')
+    {
+     if(value.parent_id == '0')
+     {
+      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+     }
+    }
+    else
+    {
+     if(value.parent_id == parent_id)
+     {
+      html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+     }
+    }
+   });
+   $('#'+id).html(html_code);
+  });
+
+ }
+
+ $(document).on('change', '#state', function(){
+  var state_id = $(this).val();
+  if(state_id != '')
+  {
+   load_json_data('district', state_id);
+  }
+  else
+  {
+   $('#district').html('<option value="">Select district</option>');
+   $('#subdistrict').html('<option value="">Select subdistrict</option>');
+  }
+ });
+ $(document).on('change', '#district', function(){
+  var district_id = $(this).val();
+  if(district_id != '')
+  {
+   load_json_data('subdistrict', district_id);
+  }
+  else
+  {
+   $('#subdistrict').html('<option value="">Select subdistrict</option>');
+  }
+ });
+});
+</script>
+{% endblock %}

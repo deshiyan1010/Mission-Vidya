@@ -1,0 +1,74 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    /*font-size: 16px;*/
+    line-height: 1.7;
+    box-sizing: border-box; 
+}
+
+#username {
+    color:#000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+}
+
+#profileimg {
+  width: 10%;
+  /* box-shadow: 0 2rem 4rem rgba(0, 0, 0, .2); */
+  border-radius: 100px;
+}
+.fb-profile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+    
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%; 
+}
+
+@media (max-width:768px)
+{
+    
+.fb-profile-text>h1{
+    font-weight: 700;
+    font-size:16px;
+}
+
+.fb-image-profile
+{   
+    max-height: 200px; !important
+    max-height: 200px; !important
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 20%; 
+}
+}
+
+.center {
+    margin-top: -5rem;
+    text-align: center; 
+}
+
+header {
+    background-image: url(../mainimg.jpg);
+    background-size: cover;
+    background-position: top;
+    height: 40vh;
+    /* box-shadow: 0 2rem 4rem rgba(0, 0, 0, .2); */
+}
+

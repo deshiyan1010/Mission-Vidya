@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'profilepage/profile.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/profilepage/profile.css">
+
+{% endblock head_block %}
+
+{% block body_block %}
+
+<h2 align='center' class='container jumbotron'>Requests for you.</h2>
+{% for request in requests %}
+<div class='container border row mx-auto'>
+  <br><br>
+  <div class='col-lg-5 offset-lg-2' id='color'>
+    <table class="table table-hover">
+      <tbody>
+      <tr>
+        <td> First Name:</td> 
+        <td> {{request.applicant.first_name}} </td>
+      </tr> 
+      <tr>
+        <td> Last Name:</td>
+        <td>{{request.applicant.last_name}} </td> 
+      </tr> 
+      <tr>
+        <td>Phone Number:</td> 
+        <td>{{request.applicant.phone_number}}</td> 
+      </tr> 
+      <tr>
+        <td>Date of Birth:</td> 
+        <td>{{request.applicant.date_of_birth}}</td> 
+      </tr> 
+      <tr>
+        <td>Time of request:</td> 
+        <td>{{request.applicant.published}}</td> 
+      </tr> 
+      <tr>
+        <td>State:</td> 
+        <td>{{request.applicant.state}}</td> 
+      </tr> 
+      <tr>
+        <td>District:</td> 
+        <td>{{request.applicant.district}}</td> 
+      </tr> 
+      <tr>
+        <td>Sub-distrcit:</td> 
+        <td>{{request.applicant.subdistrict}}</td> 
+      </tr>
+      <tr><td></td><td></td></tr> 
+    </tbody>
+    </table>
+  </div>
+
+  <div class='col-lg-3' >
+    <a class='text-center btn btn-primary' href="{% url 'profilepage:send_confirmation' request.applicant.aadhaar_number device_id %}">Confirm Send</a><br><br>
+    <a class='text-center btn btn-danger' href="{% url 'profilepage:deny_request' request.applicant.aadhaar_number device_id %}">Deny Request</a> <br>
+  </div>
+    {% endfor %}  
+  </div>
+
+{% endblock %}
+
+{% for req in project_req_list %}
+  {{req.from_user.username}}
+  <a href="{% url 'profilepage:req' 'Accept' req.user.username req.device.id %}" class="btn-del">Accept</a><br>
+  <a href="{% url 'profilepage:req' 'Reject' req.user.username req.project.id %}" class="btn-del">Reject</a><br>
+{% endfor %}

@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+{% endblock head_block %}
+
+{% block body_block %}
+
+<style>
+    #color{
+      color: darkgrey; !important
+    }
+    p{
+        color: darkgrey;
+    }
+    #form{
+        width:50%;
+        margin: auto;
+    }
+
+
+    #myProgress {
+      width: 100%;
+      background-color: grey;
+    }
+
+    #myBar {
+      width: 1%;
+      height: 30px;
+      background-color: green;
+    }
+</style>
+
+<div id='color'>
+<h3 class='text-center' style='font-size: 4em; color: darkgrey;'>Donation Form</h3>
+<form method="post"  enctype="multipart/form-data" class="form-group center" id='form'>
+    {% csrf_token %}
+    Model Name: {{form|crispy}}
+    <p class='text-center'>Please upload a minimum of one images.</p>
+    <p align='center'><strong>{{formset.non_form_errors}}</strong></p>
+
+    <input type="hidden" name="form-TOTAL_FORMS" value="2" id="id_form-TOTAL_FORMS"> <input type="hidden" name="form-INITIAL_FORMS" value="0" id="id_form-INITIAL_FORMS"> <input type="hidden" name="form-MIN_NUM_FORMS" value="1" id="id_form-MIN_NUM_FORMS"> <input type="hidden" name="form-MAX_NUM_FORMS" value="1000" id="id_form-MAX_NUM_FORMS">
+
+
+    <div class="multiField">
+        
+
+      <div id="div_id_form-0-mobile_images" class="form-group"> <label for="id_form-0-mobile_images" class="">
+                      Mobile images
+                  </label> <div class=""> <input  type="file" name="form-0-mobile_images" accept="image/*" class="clearablefileinput form-control-file" id="id_form-0-mobile_images"> </div> </div>
+      
+          </div>
+
+          <div class="multiField">
+        
+
+            <div id="div_id_form-1-mobile_images" class="form-group"> <label for="id_form-1-mobile_images" class="">
+                            Mobile images
+                        </label> <div class=""> <input type="file" name="form-1-mobile_images" accept="image/*" class="clearablefileinput form-control-file" id="id_form-1-mobile_images"> </div> </div>
+            
+                </div>
+    <p id='size1'></p>
+    <p id='size2'></p>
+    <a id='comLink' href="https://compressnow.com/">Click here to compress your image here.</a><br><br>
+    <button class='text-center btn btn-light' id='subBut' type="submit">Submit</button><br>
+    <p>If the website crashes please upload you image and wait for a few seconds then click submit. Sorry for the inconvenience.</p>
+    {% if message %}
+      <p>{{message}}</p>
+    {% endif %}
+    <br>
+    <!-- <progress id="progressBar" value="0" max="100" style="width:300px;">    
+    </progress>
+    <h3 id="status"></h3>
+    <p id="loaded_n_total"></p> -->
+    <div id="myProgress">
+      <div id="myBar"></div>
+    </div>
+</form>
+
+
+<br><br><br><br>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{% csrf_token %}
+<script>
+
+  document.getElementById("comLink").style.visibility = "hidden";
+  
+  var size1 = 0;
+  var size2 = 0;
+  
+  $('#id_form-0-mobile_images').bind('change', function() {
+  size1 = this.files[0].size;
+  console.log(size1);
+  move(size1);
+  check();
+  });
+  
+  
+  $('#id_form-1-mobile_images').bind('change', function() {
+  size2 = this.files[0].size;
+  console.log(size2);
+  move(size2)
+  check();
+  });
+  
+
+  function check(){
+    if (size1 > 5607242 || size2 > 5607242) {
+        document.getElementById("subBut").disabled = true;
+        document.getElementById("comLink").style.visibility = "visible";
+        document.getElementById('size1').innerHTML = "Please upload file that is less than 1MB.";
+      } else {
+
+        document.getElementById("subBut").disabled = false;
+        document.getElementById("comLink").style.visibility = "hidden";
+        document.getElementById('size1').innerHTML = "";
+      }
+    }
+
+    var i = 0;
+function move(size) {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 161080*10000/(size));
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+} 
+// // Img1
+//     function _(el) {
+//   return document.getElementById(el);
+// }
+
+// function uploadFile1() {
+
+//   this.server = new XMLHttpRequest();
+//   this.server.open(this.method, this.url, true);
+//   document.getElementById("subBut").disabled = true;
+
+//   var file = _("id_form-0-mobile_images").files[0];
+//   // alert(file.name+" | "+file.size+" | "+file.type);
+//   var formdata = new FormData();
+//   formdata.append("id_form-0-mobile_images", file);
+//   var ajax = new XMLHttpRequest();
+//   ajax.upload.addEventListener("progress", progressHandler, false);
+//   ajax.addEventListener("load", completeHandler, false);
+//   ajax.addEventListener("error", errorHandler, false);
+//   ajax.addEventListener("abort", abortHandler, false);
+//   ajax.open("POST", "progbar"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+
+//   ajax.send(formdata);
+// }
+
+// function progressHandler(event) {
+//   _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+//   var percent = (event.loaded / event.total) * 100;
+//   _("progressBar").value = Math.round(percent);
+//   _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+//   console.log(Math.round(percent));
+// }
+
+// function completeHandler(event) {
+//   // document.getElementById("subBut").disabled = false;
+//   check()
+//   _("status").innerHTML = event.target.responseText;
+//   _("progressBar").value = 100; //wil clear progress bar after successful upload
+// }
+
+// function errorHandler(event) {
+//   _("status").innerHTML = "Upload Failed";
+// }
+
+// function abortHandler(event) {
+//   _("status").innerHTML = "Upload Aborted";
+// }
+
+
+// // Img2
+// function _(el) {
+//   return document.getElementById(el);
+// }
+
+// function uploadFile2() {
+
+//   this.server = new XMLHttpRequest();
+//   this.server.open(this.method, this.url, true);
+//   document.getElementById("subBut").disabled = true;
+
+//   var file = _("id_form-1-mobile_images").files[0];
+//   // alert(file.name+" | "+file.size+" | "+file.type);
+//   var formdata = new FormData();
+//   formdata.append("id_form-1-mobile_images", file);
+//   var ajax = new XMLHttpRequest();
+//   ajax.upload.addEventListener("progress", progressHandler, false);
+//   ajax.addEventListener("load", completeHandler, false);
+//   ajax.addEventListener("error", errorHandler, false);
+//   ajax.addEventListener("abort", abortHandler, false);
+//   ajax.open("POST", "progbar"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+
+//   ajax.send(formdata);
+// }
+
+// function progressHandler(event) {
+//   _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+//   var percent = (event.loaded / event.total) * 100;
+//   _("progressBar").value = Math.round(percent);
+//   _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+//   console.log(Math.round(percent));
+// }
+
+// function completeHandler(event) {
+//   // document.getElementById("subBut").disabled = false;
+//   check()
+//   _("status").innerHTML = event.target.responseText;
+//   _("progressBar").value = 100; //wil clear progress bar after successful upload
+// }
+
+// function errorHandler(event) {
+//   _("status").innerHTML = "Upload Failed";
+// }
+
+// function abortHandler(event) {
+//   _("status").innerHTML = "Upload Aborted";
+// }
+
+
+  </script>
+
+{% endblock %}
+
+{{formset|crispy}} action="http://malsup.com/jquery/form/file-echo2.php" templates/file_upload_parser.php onchange="uploadFile1()"

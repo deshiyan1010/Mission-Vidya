@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load apply_custom_tags %}
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+
+
+<style>
+  img {
+    transition:transform 0.25s ease;
+}
+
+img:hover {
+    -webkit-transform:scale(1.2); /* or some other value */
+    transform:scale(1.2);
+    
+}
+
+</style>
+{% endblock head_block %}
+
+{% block body_block %}
+
+<div class='jumbotron container'>
+<h2 >Device Information</h2>
+<p style='font-size: 1.5em;'>Donors Name: {{device_list.0.user.first_name}}</p>
+</div>
+
+<div class='container' id=color>
+  
+  {% for device in device_list %}   
+    {% if device.id|availability_check == "False" %}
+    <div style='margin-bottom: 15px;' class='border container font-size'>
+      <p class='col-lg-6 offset-lg-2 col-md-6 offset-md-2' style='font-size: 1.2em; font-weight: bold; '>Model Name: {{device.model_name}}</p>
+      {% if device.id|request_check:request.session.aadhaar_number == 'True' %}
+          <a class='col-lg-2 col-md-2 btn btn-success' href="{% url 'apply_main:send_request' device.id %}">Request</a>
+      {% else %}
+          <a class='col-lg-2 btn btn-danger' href="{% url 'apply_main:remove_request' device.id %}">Delete Request</a>
+      {% endif %}
+      <br><br>
+
+      {% for image in device.images_set.all %}
+        <a href="{{image.mobile_images.url}}"><img id='myImg' class='col-lg-5 col-md-5 col-sm-12 col-12 thumbnail' style='margin-right:10px;' src="{{image.mobile_images.url}}"></a>
+      {% endfor %}
+      
+    </div>  
+    {% else %} 
+    <p>No devices available.</p> 
+    {% endif %}
+
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+
+

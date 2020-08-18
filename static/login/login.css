@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    /*font-size: 16px;*/
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    box-sizing: border-box; 
+    color: #fff;
+    height: 100vh;
+    background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../mainimg.jpg);
+    background-size: cover;
+    background-position: top;
+}
+
+#h11 {
+    font-size: 6rem;
+    text-transform: uppercase;
+    margin: 2rem;
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: .5rem 1rem;
+    color: #fff;
+}
+label {
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+.block {
+    display: block;
+    margin: 1rem auto;
+}
+
+.btn-remember {
+    font-size: 1.5rem;
+}
+
+#btn-white {
+    color: #fff;
+}
+.btn-signin {
+    display: block;
+    margin: 1rem auto;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: #fff;
+    padding: .5rem 1rem .5rem 1rem;
+    transition: all .5s;
+}
+
+.btn-signin:hover {
+background-color: #bbb;
+color: #000;
+}

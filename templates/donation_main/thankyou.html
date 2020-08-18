@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+<style>
+    #color{
+      color: darkgrey; !important
+    }
+  </style>
+{% endblock head_block %}
+
+{% block body_block %}
+
+<h1 class='container' id='color'>Thank you for taking part in this movement. Your donation will help someone get educated.</h1>
+<p class="container" id='color'>Please redirect to your profile page to see the list of your donations.</p>
+{% endblock %}

@@ -1,0 +1,111 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    /*font-size: 16px;*/
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    box-sizing: border-box; 
+    color: #fff;
+    height: 100vh;
+    background-color: rgb(24, 24, 24);
+    /* background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../mainimg.jpg);
+    background-size: cover;
+    background-position: top; */
+}
+
+h1 {
+    margin: 1rem;
+    font-size: 9rem;
+    transform: skewX(25deg);
+    
+    
+}
+
+h2.name {
+    font-size: 3rem;
+    padding: 0 1rem 0 1rem;
+    text-transform: uppercase;
+    background-color: rgb(24, 24, 24);
+    border-radius: 5px;
+   
+}
+
+
+h2.post {
+    font-size: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid #fff;
+}
+
+h3 {
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.center {
+    display: table;
+    width: 75%;
+    margin: 2rem auto;
+    padding: 3rem;
+   
+}
+
+.skew {
+    background-color: rgb(46, 46, 46);
+    transform: skewX(-25deg);
+}
+
+.bg {
+    display: table;
+    margin: 0 auto;
+    width: 75%;
+    border-radius: 2rem;
+    background-color: rgb(46, 46, 46);
+}
+
+.btn-del {
+    float: right;
+    color: white;
+}
+
+.btn-submit  {
+    color: #fff;
+    background-color: rgb(24, 24, 24) ;
+    border-radius: 4px;
+    border: none;
+    padding: .3rem ;
+    margin-left: 2rem;
+}
+
+.btn-comment,
+.btn-comment:hover{
+    color: #fff;
+    background-color: rgb(24, 24, 24) ;
+    border-radius: 4px;
+    border: none;
+    padding: .3rem ;
+    margin-left: 2rem;
+}
+
+
+img {
+    
+    display: table;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+}

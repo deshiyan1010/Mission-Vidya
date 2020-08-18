@@ -1,0 +1,69 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load apply_custom_tags %}
+{% block head_block %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+{% endblock head_block %}
+
+{% block body_block %}
+<div class='container'>
+  <div class='container jumbotron font-size' align='center'>
+  <h2>Donor List</h2>
+  <h4>Special Key: {{request.session.special_key}}</h4>
+  </div>
+  <div  id='color'>
+    <div class='row'>
+    <a class='btn btn-primary col-md-2 offset-md-1 col-sm-8 offset-sm-2 col-10 offset-1' style="height: 35px;" href="{% url 'apply_main:request_list' %}">My Request List</a>
+    <form class='offset-md-5 col-md-4 col-sm-8 offset-sm-2 col-10 offset-1' style='margin-top:20px' method="post">
+        {% csrf_token %}
+        <label for="filter_distance">Within: </label>
+        <input type="number" name="filter_distance" style="width:30%" value={{distance}}>km
+        <input type="submit" class='btn btn-success' value="Find">
+    </form><br><br>
+  </div>
+
+    
+ 
+    {% for donor in donors %}
+     
+      {% if donor.user.donate_set.all|available_donation == "True" %}
+      
+      <div class='container border font-size row mx-auto' style='margin-top:20px'>
+      <table class='col-lg-4 offset-lg-2'>
+        <tr>
+          <td>First Name:</td>
+          <td>{{donor.user.first_name}}</td>
+        </tr>
+        <tr>
+          <td>State:</td>
+          <td>{{donor.state}}</td>
+        </tr>
+        <tr>
+          <td>District:</td>
+          <td>{{donor.district}}</td>
+        </tr>
+        <tr>
+          <td>Subdistrcit:</td>
+          <td>{{donor.subdistrict}}</td>
+        </tr>
+
+      </table>      
+        <a class='col-lg-2 btn btn-success' style='height:35px'href="{% url 'apply_main:donor_details' donor.user.username %}">View Devices</a>
+      </div> 
+
+        {% endif %}
+
+    
+  {% endfor %}
+
+  <p>If no results are displayed then there are no donors in the radius of {{distance}}. Try increasing the search radius in the filter for donors.</p>
+
+</div>
+</div>
+{% endblock %}
+
+
+
